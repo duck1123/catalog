@@ -1,0 +1,7 @@
+jiksnu:
+  image: repo.jiksnu.org/duck1123/jiksnu
+  expose:
+    - 8080
+
+mongo:
+  image: mongo
