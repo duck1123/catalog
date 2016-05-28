@@ -6,10 +6,10 @@
   minimum_rancher_version: 1.0.0
   questions:
     - variable: domain
-      label: domain
+      label: Site Domain
       description: |
         Domain
-        type: string
+      type: string
 
 jiksnu:
   scale: 1
