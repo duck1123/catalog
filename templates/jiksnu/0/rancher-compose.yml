@@ -3,7 +3,7 @@
   version: "v0.3.0"
   description: "Distributed Social Network"
   uuid: jiksnu-0
-  minimum_rancher_version: 1.0
+  minimum_rancher_version: 1.0.0
   questions:
     - variable: domain
       label: domain
