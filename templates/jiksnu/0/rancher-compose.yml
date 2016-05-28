@@ -5,11 +5,11 @@
   uuid: jiksnu-0
   minimum_rancher_version: 1.0
   questions:
-    variable: domain
-    label: domain
-    description: |
-      Domain
-    type: string
+    - variable: domain
+      label: domain
+      description: |
+        Domain
+        type: string
 
 jiksnu:
   scale: 1
