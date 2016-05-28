@@ -1,2 +1,7 @@
+.catalog:
+  name: "Jiksnu"
+  version: "v0.3.0-SNAPSHOT"
+  description: "Distributed Social Network"
+
 jiksnu:
   scale: 1
