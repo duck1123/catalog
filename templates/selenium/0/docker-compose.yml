@@ -1,0 +1,9 @@
+  selenium:
+    image: elgalu/selenium
+    environment:
+      VNC_PASSWORD: "hunter2"
+      NOVNC: "true"
+      VIRTUAL_HOST: "selenium.docker"
+      VIRTUAL_PORT: "6080"
+    expose:
+      - "26080"
