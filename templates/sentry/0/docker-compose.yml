@@ -22,3 +22,8 @@ sentry_worker:
     C_FORCE_ROOT: "true"
   volumes:
     - sentry-files:/data
+
+postgresdb:
+  image: postgres:9.4
+  volumes:
+    - postgres-data:/var/lib/postgresql/data

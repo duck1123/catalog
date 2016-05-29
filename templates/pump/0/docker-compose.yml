@@ -1,0 +1,5 @@
+pump:
+  image: repo.jiksnu.org/duck1123/pumpio
+  build: docker/pump
+  environment:
+    VIRTUAL_HOST: "pump.docker"

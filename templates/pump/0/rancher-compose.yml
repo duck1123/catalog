@@ -1,0 +1,9 @@
+.catalog:
+  name: "Pump.io"
+  version: "v0.1.0"
+  description: "Pump.io"
+  uuid: pumpio-0
+  minimum_rancher_version: 1.0.0
+
+pump:
+  scale: 1
