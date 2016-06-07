@@ -30,3 +30,6 @@ swarm:
 swarm-agent:
   image: swarm
   command: join --addr docker-proxy:2375 etcd://etcd:4001
+
+redis:
+  image: redis:3
