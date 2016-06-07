@@ -1,0 +1,6 @@
+mongoexpress:
+  image: knickers/mongo-express
+  environment:
+    ME_CONFIG_BASICAUTH_USERNAME: "admin"
+    ME_CONFIG_BASICAUTH_PASSWORD: "admin"
+    VIRTUAL_HOST: "mongo.docker"

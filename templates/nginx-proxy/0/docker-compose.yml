@@ -1,0 +1,11 @@
+proxy:
+  image: rckrdstrgrd/nginx-proxy
+  environment:
+    DNSDOCK_ALIAS: "dns.docker,etcd-viewer.docker,grafana.docker,jiksnu.docker,jiksnu-integration.docker,kibana.docker,mongo.docker,phpmyadmin.docker,pump.docker,rabbit.docker,redis-commander.docker,selenium.docker,sentry.docker,shipyard.docker"
+  ports:
+    - 80
+  volumes:
+    - /etc/nginx/conf.d
+    - /etc/nginx/vhost.d
+    - /etc/nginx/certs:ro
+    - /tmp/docker.sock:ro

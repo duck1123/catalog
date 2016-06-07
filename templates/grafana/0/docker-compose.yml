@@ -1,0 +1,10 @@
+grafana:
+  image: kamon/grafana_graphite:latest
+  environment:
+    VIRTUAL_HOST: "grafana.docker"
+  volumes:
+    - /opt/graphite/storage/whisper
+    - /var/lib/elasticsearch
+    - /opt/grafana/data
+    - /opt/graphite/storage/log
+    - /var/log/elasticsearch

@@ -1,29 +1,29 @@
 sentry:
   image: slafs/sentry
-  depends_on:
+  links:
     - postgresdb
     - redis
     - sentry_worker
-    - proxy
-  env_file: docker/sentry/environment
   environment:
     VIRTUAL_HOST: "sentry.docker"
   volumes:
-    - sentry-files:/data
+    - /data
 
 sentry_worker:
   image: slafs/sentry
   command: celery worker -B
-  depends_on:
+  links:
     - postgresdb
     - redis
-  env_file: docker/sentry/environment
   environment:
     C_FORCE_ROOT: "true"
   volumes:
-    - sentry-files:/data
+    - /data
+
+redis:
+  image: redis:3
 
 postgresdb:
   image: postgres:9.4
   volumes:
-    - postgres-data:/var/lib/postgresql/data
+    - /var/lib/postgresql/data
