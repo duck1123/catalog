@@ -11,18 +11,12 @@ docker-proxy:
 etcd:
   image: microbox/etcd
   command: --name jiksnu -data-dir=/data
-  depends_on:
-    - redis
   volumes:
     - etcd-data:/data
 
 shipyard:
   image: shipyard/shipyard
   command: server -d tcp://swarm:3375
-  depends_on:
-    - proxy
-    - rethinkdb
-    - swarm
   environment:
     VIRTUAL_HOST: "shipyard.docker"
     VIRTUAL_PORT: "8080"
@@ -31,13 +25,8 @@ shipyard:
 swarm:
   image: swarm
   command: manage --host tcp://0.0.0.0:3375 etcd://etcd:4001
-  depends_on:
-    - swarm-agent
   restart: always
 
 swarm-agent:
   image: swarm
   command: join --addr docker-proxy:2375 etcd://etcd:4001
-  depends_on:
-    - docker-proxy
-    - etcd
