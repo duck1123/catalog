@@ -1,0 +1,5 @@
+name: Nginx Proxy
+description: |
+  Nginx Proxy
+version: v0.1.0
+category: Applications

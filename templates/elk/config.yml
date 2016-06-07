@@ -1,0 +1,5 @@
+name: ELK
+description: |
+  Elasticsearch, Logstash, Kibana
+version: v0.1.0
+category: Applications

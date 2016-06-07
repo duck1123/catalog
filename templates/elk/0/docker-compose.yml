@@ -5,4 +5,4 @@ elk:
     VIRTUAL_HOST: "kibana.docker"
     VIRTUAL_PORT: "5601"
   volumes:
-    - ./docker/elk/conf.d:/etc/logstash/conf.d
+    - /etc/logstash/conf.d
