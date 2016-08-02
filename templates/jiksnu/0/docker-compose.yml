@@ -8,7 +8,7 @@ JiksnuLB:
   stdin_open: true
 
 jiksnu:
-  image: repo.jiksnu.org/duck1123/jiksnu
+  image: repo.jiksnu.org/kronkltd/jiksnu
   environment:
     DOMAIN: jiksnu.com
   links:
