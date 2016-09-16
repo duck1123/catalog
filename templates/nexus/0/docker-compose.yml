@@ -1,0 +1,12 @@
+nexus:
+  ports:
+  - 5001:5001/tcp
+  - 8081:8081/tcp
+  environment:
+    VIRTUAL_HOST: repo.jiksnu.org
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: clearent/nexus
+  volumes:
+  - nexus-data:/nexus-data
