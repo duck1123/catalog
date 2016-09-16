@@ -5,7 +5,7 @@ proxy:
   ports:
     - 80
   volumes:
-    - /etc/nginx/conf.d
-    - /etc/nginx/vhost.d
-    - /etc/nginx/certs:ro
-    - /tmp/docker.sock:ro
+    - proxy-conf:/etc/nginx/conf.d
+    - proxy-vhost:/etc/nginx/vhost.d
+    - proxy-certs:/etc/nginx/certs:ro
+    - /var/run/docker.sock:/tmp/docker.sock:ro
