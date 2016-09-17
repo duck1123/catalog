@@ -1,0 +1,11 @@
+sentry:
+  scale: 1
+
+sentry_worker:
+  scale: 1
+
+redis:
+  scale: 1
+
+postgresdb:
+  scale: 1
