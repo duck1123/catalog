@@ -4,5 +4,10 @@ elk:
     LOGSPOUT: "ignore"
     VIRTUAL_HOST: "kibana.docker"
     VIRTUAL_PORT: "5601"
+  ports:
+    - 5601
+    - 9200
+    - 5044
+    - 5000
   volumes:
     - /etc/logstash/conf.d
