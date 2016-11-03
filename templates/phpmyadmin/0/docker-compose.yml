@@ -1,5 +1,0 @@
-phpmyadmin:
-  image: phpmyadmin/phpmyadmin
-  environment:
-    VIRTUAL_HOST: "phpmyadmin.docker"
-    PMA_HOST: "mysql"
