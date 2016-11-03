@@ -10,6 +10,16 @@
       description: |
         Domain
       type: string
+    - variable: sentrydsn
+      label: Sentry DSN
+      description: |
+        The DSN for a sentry server to receive error reports
+      type: string
+    - variable: traefikdomain
+      label: Traefik Domain
+      description: |
+        Base URL of host
+      type: string
 
 JiksnuLB:
   scale: 1

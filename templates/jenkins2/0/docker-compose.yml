@@ -1,0 +1,14 @@
+version: '2'
+services:
+  jenkins:
+    labels:
+      traefik.domain: jiksnu.org
+      io.rancher.container.pull_image: always
+      traefik.port: '8080'
+      traefik.enable: stack
+    tty: true
+    image: duck1123/jenkins-docker:latest
+    logging: {}
+    volumes:
+    - jenkins-data:/var/jenkins_home
+    - /var/run/docker.sock:/var/run/docker.sock:rw

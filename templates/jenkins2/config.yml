@@ -1,5 +1,5 @@
-name: Jenkins 2
+name: build
 description: |
-  Jenkins 2
+  Jenkins 2 Setup for build.jiksnu.org
 version: v0.1.0
-category: Applications
+category: Continuous Integration

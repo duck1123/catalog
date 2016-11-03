@@ -1,18 +1,26 @@
-JiksnuLB:
-  ports:
-    - 8082:80
-  tty: true
-  image: rancher/load-balancer-service
-  links:
-  - jiksnu
-  stdin_open: true
-
-jiksnu:
-  image: repo.jiksnu.org/kronkltd/jiksnu
-  environment:
-    DOMAIN: jiksnu.com
-  links:
-    - mongo
-
-mongo:
-  image: mongo
+version: '2'
+services:
+  jiksnu:
+    environment:
+      DOMAIN: ${traefikdomain}
+      HTTP_PORT: '8080'
+      JIKSNU_SENTRY_DSN: ${sentrydsn}
+    labels:
+      traefik.domain: com
+      io.rancher.container.pull_image: always
+      traefik.port: '8080'
+      traefik.enable: stack
+    image: repo.jiksnu.org/kronkltd/jiksnu:latest
+    logging: {}
+    links:
+    - 'mongo:'
+    volumes:
+    - jiksnu-media:/data
+  mongo:
+    labels:
+      io.rancher.container.pull_image: always
+    image: mongo:latest
+    logging: {}
+    volumes:
+    - jiksnu-data:/data/db
+    - jiksnu-config:/data/configdb

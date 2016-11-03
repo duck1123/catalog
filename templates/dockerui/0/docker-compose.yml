@@ -1,8 +1,12 @@
-dockerui:
-  image: uifd/ui-for-docker
-  ports:
-    - 9000
-  environment:
-    VIRTUAL_HOST: "dockerui.docker"
-  volumes:
+version: '2'
+services:
+  dockerui:
+    labels:
+      traefik.domain: kronkltd.net
+      io.rancher.container.pull_image: always
+      traefik.port: '9000'
+      traefik.enable: stack
+    image: uifd/ui-for-docker:latest
+    logging: {}
+    volumes:
     - /var/run/docker.sock:/var/run/docker.sock
