@@ -1,14 +1,19 @@
-version: '2'
-services:
-  jenkins:
-    scale: 1
-    health_check:
-      port: 8080
-      interval: 2000
-      initializing_timeout: 60000
-      unhealthy_threshold: 3
-      strategy: recreate
-      response_timeout: 2000
-      request_line: GET "/cc.xml" "HTTP/1.0"
-      healthy_threshold: 2
-      reinitializing_timeout: 60000
+.catalog:
+  name: "Jenkins"
+  version: "v0.1.0"
+  description: "Distributed Social Network"
+  uuid: jenkins-0
+  minimum_rancher_version: 1.2.0
+
+jenkins:
+  scale: 1
+  health_check:
+    port: 8080
+    interval: 2000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    request_line: GET "/cc.xml" "HTTP/1.0"
+    healthy_threshold: 2
+    reinitializing_timeout: 60000
