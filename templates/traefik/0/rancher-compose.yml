@@ -1,49 +1,73 @@
-.catalog:
-  name: Traefik
-  version: v1.0.0-beta.555-rancher1
-  description: |
-    (Experimental) Traefik active load balancer.
-  minimum_rancher_version: v0.59.0
-  maintainer: "Raul Sanchez <rawmind@gmail.com>"
-  uuid: traefik-0
-  questions:
-    - variable: "http_port"
-      description: "Traefik http public port to listen."
-      label: "Http port:"
-      required: true
-      default: 8080
-      type: "int"
-    - variable: "https_port"
-      description: "Traefik https public port to listen."
-      label: "Https port:"
-      required: true
-      default: 8443
-      type: "int"
-    - variable: "admin_port"
-      description: "Traefik admin public port to listen."
-      label: "Admin port:"
-      required: true
-      default: 8000 
-      type: "int"
-    - variable: "refresh_interval"
-      description: "Interval to poll/apply configuration changes." 
-      label: "Refresh Interval (s):"
-      required: true
-      default: 60 
-      type: "int"
-    - variable: "ssl_cert"
-      description: "SSL certificate" 
-      label: "SSL certificate:"
-      required: false
-      default: ""
-      type: "certificate"
-traefik:
-  retain_ip: true
-  default_cert: ${ssl_cert}
-  health_check:
-    port: ${admin_port}
-    interval: 5000
-    unhealthy_threshold: 3
-    request_line: 'GET /dashboard/# HTTP/1.0'
-    healthy_threshold: 2
-    response_timeout: 5000
+version: '2'
+services:
+  .catalog:
+    name: Traefik
+    version: v1.0.0-beta.555-rancher1
+    description: |
+      (Experimental) Traefik active load balancer.
+    minimum_rancher_version: v0.59.0
+    maintainer: "Raul Sanchez <rawmind@gmail.com>"
+    uuid: traefik-0
+    questions:
+      - variable: "http_port"
+        description: "Traefik http public port to listen."
+        label: "Http port:"
+        required: true
+        default: 8080
+        type: "int"
+      - variable: "https_port"
+        description: "Traefik https public port to listen."
+        label: "Https port:"
+        required: true
+        default: 8443
+        type: "int"
+      - variable: "admin_port"
+        description: "Traefik admin public port to listen."
+        label: "Admin port:"
+        required: true
+        default: 8000
+        type: "int"
+      - variable: "refresh_interval"
+        description: "Interval to poll/apply configuration changes."
+        label: "Refresh Interval (s):"
+        required: true
+        default: 60
+        type: "int"
+      - variable: "ssl_cert"
+        description: "SSL certificate"
+        label: "SSL certificate:"
+        required: false
+        default: ""
+        type: "certificate"
+  traefik-conf:
+    metadata:
+      traefik: &id001
+        ssl_crt: ''
+        ssl_key: ''
+    retain_ip: true
+    start_on_create: true
+  traefik:
+    metadata:
+      traefik: *id001
+    retain_ip: true
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 5000
+      port: 8000
+      unhealthy_threshold: 3
+      interval: 5000
+      strategy: recreate
+      request_line: GET /dashboard/# HTTP/1.0
+  dashboard:
+    scale: 1
+    start_on_create: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 80
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000

@@ -1,34 +1,50 @@
-
-traefik:
-  ports:
-  - ${admin_port}:${admin_port}/tcp
-  - ${http_port}:${http_port}/tcp
-  - ${https_port}:${https_port}/tcp
-  log_driver: ''
-  labels:
-    io.rancher.scheduler.global: 'true'
-    io.rancher.scheduler.affinity:host_label: traefik_lb=true
-    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-    io.rancher.sidekicks: traefik-conf
-    io.rancher.container.hostname_override: container_name
-  tty: true
-  log_opt: {}
-  image: rawmind/alpine-traefik:1.0.0-beta.771
-  environment:
-  - TRAEFIK_HTTP_PORT=${http_port}
-  - TRAEFIK_HTTPS_PORT=${https_port}
-  - TRAEFIK_ADMIN_PORT=${admin_port}
-  - CONF_INTERVAL=${refresh_interval}
-  volumes_from:
-  - traefik-conf
-traefik-conf:
-  log_driver: ''
-  labels:
-    io.rancher.scheduler.global: 'true'
-    io.rancher.scheduler.affinity:host_label: traefik_lb=true
-    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-    io.rancher.container.start_once: 'true'
-  tty: true
-  log_opt: {}
-  image: rawmind/rancher-traefik:0.0.1-10
-  net: none
+version: '2'
+services:
+  traefik-conf:
+    image: rawmind/rancher-traefik:0.3.4-14
+    network_mode: none
+    volumes:
+    - /opt/tools
+    tty: true
+    labels:
+      io.rancher.scheduler.affinity:host_label: traefik_lb=true
+      io.rancher.container.start_once: 'true'
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+      io.rancher.scheduler.global: 'true'
+  traefik:
+    image: rawmind/alpine-traefik:1.1.2
+    environment:
+      CONF_INTERVAL: '10'
+      TRAEFIK_ACME_EMAIL: duck@kronkltd.net
+      TRAEFIK_ACME_ENABLE: 'true'
+      TRAEFIK_ACME_ONDEMAND: 'true'
+      TRAEFIK_ACME_ONHOSTRULE: 'true'
+      TRAEFIK_HTTPS_ENABLE: only
+      TRAEFIK_HTTPS_PORT: '443'
+      TRAEFIK_HTTP_PORT: '80'
+    tty: true
+    volumes_from:
+    - traefik-conf
+    ports:
+    - 8000:8000/tcp
+    - 80:80/tcp
+    - 443:443/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: traefik_lb=true
+      io.rancher.sidekicks: traefik-conf
+      io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+      io.rancher.scheduler.global: 'true'
+  dashboard:
+    image: duck1123/docker-nginx-basic-auth
+    environment:
+      FORWARD_PORT: '8000'
+    stdin_open: true
+    tty: true
+    links:
+    - traefik:web
+    labels:
+      traefik.port: '80'
+      traefik.enable: stack
+      traefik.domain: kronkltd.net
+      io.rancher.container.pull_image: always
