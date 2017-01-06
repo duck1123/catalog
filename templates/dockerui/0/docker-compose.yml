@@ -1,15 +1,18 @@
 version: '2'
 services:
-  dockerui:
+  proxy:
+    image: duck1123/docker-nginx-basic-auth:latest
+    environment:
+      FORWARD_PORT: '9000'
+    links:
+    - dockerui:web
     labels:
-      io.rancher.container.pull_image: always
+      traefik.port: '80'
+      traefik.domain: kronkltd.net
+      traefik.enable: stack
+  dockerui:
     image: uifd/ui-for-docker:latest
-    logging: {}
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-  proxy:
     labels:
-      traefik.domain: kronkltd.net
-      traefik.port: '80'
-      traefik.enable: stack
-    image: duck1123/docker-nginx-basic-auth:latest
+      io.rancher.container.pull_image: always
