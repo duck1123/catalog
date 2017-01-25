@@ -1,9 +1,17 @@
-selenium:
-  image: elgalu/selenium
-  environment:
-    VNC_PASSWORD: "hunter2"
-    NOVNC: "true"
-    VIRTUAL_HOST: "selenium.docker"
-    VIRTUAL_PORT: "6080"
-  expose:
-    - "26080"
+version: '2'
+services:
+  selenium:
+    image: elgalu/selenium
+    environment:
+      VNC_PASSWORD: ${vnc_password}
+      NOVNC: "true"
+    ports:
+      - 4444:24444
+      - 5900:25900
+      - 6080:26080
+    volumes:
+      - /dev/shm:/dev/shm
+    labels:
+      traefik.enable: stack
+      traefik.port: 26080
+      traefik.domain: ${domain_name}

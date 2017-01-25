@@ -1,2 +1,30 @@
-selenium:
-  scale: 1
+version: '2'
+catalog:
+  name: Selenium
+  version: v0.1.0
+  description: |
+    Selenium in Docker with Chrome & Firefox plus video recording support.
+  questions:
+    - variable: "domain_name"
+      description: "Base domain name"
+      label: "Domain Name"
+      required: true
+      default: "kronkltd.net"
+    - variable: "vnc_password"
+      description: "Database Password. default: hunter2"
+      label: "Database Password"
+      default: "hunter2"
+      required: true
+      type: "password"
+services:
+  selenium:
+    scale: 1
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 2444
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: none
+      reinitializing_timeout: 60000
