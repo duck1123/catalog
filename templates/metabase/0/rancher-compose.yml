@@ -1,0 +1,41 @@
+.catalog:
+  name: Metabase
+  version: "v0.1.0"
+  description: "Metabase is the easy, open source way for everyone in your company to ask questions and learn from data."
+  questions:
+    - variable: "domain_name"
+      description: "Base domain name"
+      label: "Domain Name"
+      required: true
+      default: "kronkltd.net"
+    - variable: "db_link"
+      description: "Database Link"
+      label: "Mysql Service"
+      default: "mysql/mysql"
+      required: true
+      type: "service"
+    - variable: "db_username"
+      description: "Database Username"
+      label: "Dqatabase Username"
+      required: true
+      default: "metabase"
+    - variable: "db_password"
+      description: "Database Password. default: metabase"
+      label: "Database Password"
+      default: "metabase"
+      required: true
+      type: "password"
+
+metabase:
+    scale: 1
+    start_on_create: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 3000
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      request_line: GET "/api/health" "HTTP/1.0"
+      reinitializing_timeout: 60000

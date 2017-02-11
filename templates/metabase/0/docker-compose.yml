@@ -1,0 +1,21 @@
+version: '2'
+services:
+  metabase:
+    image: metabase/metabase
+    environment:
+      MB_JETTY_HOST: 0.0.0.0
+      MB_DB_TYPE: mysql
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: "3306"
+      MB_DB_USER: ${db_username}
+      MB_DB_PASS: ${db_password}
+      MB_DB_HOST: dbs
+    stdin_open: true
+    tty: true
+    external_links:
+      - ${db_link}:dbs
+    labels:
+      io.rancher.container.pull_image: always
+      traefik.enable: "stack"
+      traefik.port: 3000
+      traefik.domain: ${domain_name}
