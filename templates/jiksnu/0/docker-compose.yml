@@ -10,7 +10,7 @@ services:
       io.rancher.container.pull_image: always
       traefik.port: '8080'
       traefik.enable: stack
-    image: repo.jiksnu.org/kronkltd/jiksnu:latest
+    image: registry.kronkltd.net/kronkltd/jiksnu:latest
     logging: {}
     links:
     - 'mongo:'
