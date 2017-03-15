@@ -1,0 +1,5 @@
+name: Portainer
+description: |
+  Portainer
+version: v0.1.0
+category: Docker Utilities
