@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Validating Yaml Files"
+! find . -name "*.yml" -exec \
+  bash -c "ruby -e \"require 'yaml';YAML.load_file('{}')\" &>/dev/null || echo '{}'" \; \
+  | grep yml
