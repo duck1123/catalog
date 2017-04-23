@@ -1,4 +1,15 @@
 version: '2'
+catalog:
+  name: InfluxDB
+  description: Timeout series database
+  version: v0.10
+  questions:
+    - variable: TRAEFIK_DOMAIN
+      description: Base domain name
+      label: Domain Name
+      type: string
+      required: true
+      default: kronkltd.net
 services:
   influxdb:
     scale: 1
