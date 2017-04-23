@@ -1,0 +1,13 @@
+version: '2'
+services:
+  influxdb:
+    image: tutum/influxdb:0.10
+    environment:
+      GRAPHITE_BINDING: :2003
+      GRAPHITE_DB: rancher
+      PRE_CREATE_DB: grafana;prometheus;rancher
+    volumes:
+      - data:/data
+volumes:
+  data:
+    driver: local

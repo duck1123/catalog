@@ -6,21 +6,26 @@ services:
       HTTP_PORT: '8080'
       JIKSNU_SENTRY_DSN: ${sentrydsn}
     labels:
-      traefik.domain: com
       io.rancher.container.pull_image: always
-      traefik.port: '8080'
+      traefik.domain: 'com'
       traefik.enable: stack
+      traefik.port: '8080'
     image: registry.kronkltd.net/kronkltd/jiksnu:latest
-    logging: {}
     links:
-    - 'mongo:'
+      - 'mongo:'
     volumes:
-    - jiksnu-media:/data
+      - media:/data
   mongo:
     labels:
       io.rancher.container.pull_image: always
     image: mongo:latest
-    logging: {}
     volumes:
-    - jiksnu-data:/data/db
-    - jiksnu-config:/data/configdb
+      - data:/data/db
+      - config:/data/configdb
+volumes:
+  data:
+    driver: local
+  config:
+    driver: local
+  media:
+    driver: local

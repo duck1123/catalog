@@ -1,10 +1,30 @@
-grafana:
-  image: kamon/grafana_graphite:latest
-  environment:
-    VIRTUAL_HOST: "grafana.docker"
-  volumes:
-    - /opt/graphite/storage/whisper
-    - /var/lib/elasticsearch
-    - /opt/grafana/data
-    - /opt/graphite/storage/log
-    - /var/log/elasticsearch
+version: '2'
+services:
+  grafana:
+    image: grafana/grafana:4.0.2
+    tty: true
+    external_links:
+      - ${INFLUXDB_LINK}:influxdb
+      - ${PROMETHEUS_LINK}:prometheus
+    volumes:
+      - data:/var/lib/grafana/
+    labels:
+      io.rancher.sidekicks: graf-db
+      traefik.enable: stack
+      traefik.port: '3000'
+      traefik.domain: ${TRAEFIK_DOMAIN}
+  graf-db:
+    image: infinityworks/graf-db:10
+    network_mode: none
+    volumes:
+      - data:/var/lib/grafana/
+    tty: true
+    links:
+      - prometheus:prometheus
+      - influxdb:influxdb
+      - prometheus-rancher-exporter:prometheus-rancher-exporter
+    command:
+      - cat
+volumes:
+  data:
+    driver: local

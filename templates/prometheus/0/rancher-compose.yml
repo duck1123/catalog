@@ -1,8 +1,8 @@
 version: '2'
 catalog:
-  name: Grafana
-  description: Data visualization
-  version: v4.0.2
+  name: Prometheus
+  description: Metrics Collection
+  version: v1.4.1
   questions:
     - variable: INFLUXDB_LINK
       label: InfluxDB service
@@ -10,12 +10,6 @@ catalog:
       required: true
       default: influxdb/influxdb
       description: InfluxDB service link
-    - variable: PROMETHEUS_LINK
-      label: Prometheus service
-      type: service
-      required: true
-      default: prometheus/prometheus
-      description: Prometheus service link
     - variable: TRAEFIK_DOMAIN
       description: Base domain name
       label: Domain Name
@@ -23,16 +17,30 @@ catalog:
       required: true
       default: kronkltd.net
 services:
-  grafana:
+  node-exporter:
+    start_on_create: true
+  prom-conf:
+    scale: 1
+    start_on_create: true
+  cadvisor:
+    start_on_create: true
+  prometheus-rancher-exporter:
     scale: 1
     start_on_create: true
     health_check:
       healthy_threshold: 2
       response_timeout: 5000
-      port: 3000
+      port: 9173
       unhealthy_threshold: 3
       interval: 5000
       strategy: recreate
-  graf-db:
+  prometheus:
     scale: 1
     start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 5000
+      port: 9090
+      unhealthy_threshold: 3
+      interval: 5000
+      strategy: recreate

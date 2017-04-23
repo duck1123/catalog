@@ -1,0 +1,4 @@
+name: prometheus
+description: Prometheus
+version: v1.4.1
+category: Metrics

@@ -1,0 +1,4 @@
+name: influxdb
+description: InfluxDB
+version: v0.10
+category: Databases
