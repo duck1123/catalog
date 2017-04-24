@@ -1,4 +1,6 @@
 name: influxdb
-description: InfluxDB
+description: |
+  InfluxDB
 version: v0.10
 category: Databases
+maintainer: Daniel E. Renfer (duck@kronkltd.net)
