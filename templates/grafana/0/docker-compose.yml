@@ -6,8 +6,11 @@ services:
     external_links:
       - ${INFLUXDB_LINK}:influxdb
       - ${PROMETHEUS_LINK}:prometheus
+      - ${PROMETHEUS_RANCHER_EXPORTER_LINK}:prometheus-rancher-exporter
     volumes:
       - data:/var/lib/grafana/
+      - config:/etc/grafana/
+      - logs:/var/log/grafana/
     labels:
       io.rancher.sidekicks: graf-db
       traefik.enable: stack
@@ -19,12 +22,16 @@ services:
     volumes:
       - data:/var/lib/grafana/
     tty: true
-    links:
-      - prometheus:prometheus
-      - influxdb:influxdb
-      - prometheus-rancher-exporter:prometheus-rancher-exporter
+    external_links:
+      - ${INFLUXDB_LINK}:influxdb
+      - ${PROMETHEUS_LINK}:prometheus
+      - ${PROMETHEUS_RANCHER_EXPORTER_LINK}:prometheus-rancher-exporter
     command:
       - cat
 volumes:
   data:
+    driver: local
+  config:
+    driver: local
+  logs:
     driver: local

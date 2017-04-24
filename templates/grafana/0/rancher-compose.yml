@@ -16,6 +16,12 @@ catalog:
       required: true
       default: prometheus/prometheus
       description: Prometheus service link
+    - variable: PROMETHEUS_RANCHER_EXPORTER_LINK
+      label: Prometheus Rancher Exporter service
+      type: service
+      required: true
+      default: prometheus/prometheus-rancher-exporter
+      description: Prometheus Rancher Exporter service link
     - variable: TRAEFIK_DOMAIN
       description: Base domain name
       label: Domain Name
