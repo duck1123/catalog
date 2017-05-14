@@ -2,9 +2,9 @@ version: '2'
 services:
   jiksnu:
     environment:
-      DOMAIN: ${traefikdomain}
+      DOMAIN: ${DOMAIN}
       HTTP_PORT: '8080'
-      JIKSNU_SENTRY_DSN: ${sentrydsn}
+      JIKSNU_SENTRY_DSN: ${SENTRY_DSN}
     labels:
       io.rancher.container.pull_image: always
       traefik.domain: 'com'
