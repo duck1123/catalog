@@ -16,6 +16,12 @@ catalog:
       type: string
       required: true
       default: kronkltd.net
+    - variable: VOLUME_DRIVER
+      description: Volume Driver
+      label: Volume Driver
+      type: string
+      required: true
+      default: local
 services:
   node-exporter:
     start_on_create: true

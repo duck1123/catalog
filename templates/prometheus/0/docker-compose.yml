@@ -56,6 +56,6 @@ services:
       traefik.domain: ${TRAEFIK_DOMAIN}
 volumes:
   conf:
-    driver: local
+    driver: ${VOLUME_DRIVER}
   data:
-    driver: local
+    driver: ${VOLUME_DRIVER}
