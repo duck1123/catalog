@@ -30,8 +30,8 @@ services:
       - cat
 volumes:
   data:
-    driver: local
+    driver: ${VOLUME_DRIVER}
   config:
-    driver: local
+    driver: ${VOLUME_DRIVER}
   logs:
-    driver: local
+    driver: ${VOLUME_DRIVER}
