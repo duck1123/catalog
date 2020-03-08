@@ -1,0 +1,16 @@
+name: dinsro
+version: 0.1.0
+appVersion: 0.1.0
+description: Sats-first budget management
+keywords:
+- bitcoin
+- finance
+home: https://github.com/duck1123/dinsro
+icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
+sources:
+- https://github.com/kubernetes/charts
+- https://github.com/duck1123/dinsro
+maintainers:
+- name: Duck Nebuchadnezzar
+  email: duck@kronkltd.net
+engine: gotpl

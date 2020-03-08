@@ -1,0 +1,22 @@
+categories:
+- Database
+- dinsro
+questions:
+- variable: defaultImage
+  default: "true"
+  description: "Use default Docker images"
+  label: Use Default Images
+  type: boolean
+  show_subquestion_if: false
+  group: "Container Images"
+  subquestions:
+  - variable: image
+    default: "dinsro"
+    description: "Docker image name"
+    type: string
+    label: Image Name
+  - variable: imageTag
+    default: "latest"
+    description: "Docker image tag"
+    type: string
+    label: Image Tag
