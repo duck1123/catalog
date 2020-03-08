@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dinsro
+  labels:
+    name: dinsro
+spec:
+  containers:
+    - name: dinsro
+      image: "duck1123/dinsro:latest"
+      ports:
+        - containerPort: ${SERVICE_PORT}
+          name: dinsro
+      env:
+        - name: DB_PASS
+          value: ${DB_PASS}
+      volumes:
+        - name: minecraft-data
+          emptyDir: {}
