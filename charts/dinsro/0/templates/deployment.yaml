@@ -24,7 +24,7 @@ spec:
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
         env:
-          - FOO=bar
+          FOO: bar
         ports:
         - name: dinsro
           containerPort: 3000
