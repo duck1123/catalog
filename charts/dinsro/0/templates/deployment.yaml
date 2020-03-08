@@ -27,7 +27,7 @@ spec:
           - name: FOO
             value: "bar"
           - name: DATAHIKE_URL
-            value: "file:///home/duck/projects/dinsro/data/dev"
+            value: "file:///var/lib/dinsro/data"
         ports:
         - name: dinsro
           containerPort: 3000
@@ -51,24 +51,13 @@ spec:
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         volumeMounts:
         - name: data
-          mountPath: /var/lib/mysql
-          {{- if .Values.persistence.subPath }}
-          subPath: {{ .Values.persistence.subPath }}
-          {{- end }}
-        {{- if .Values.configurationFiles }}
+          mountPath: /var/lib/dinsro/data
         - name: configurations
-          mountPath: /etc/mysql/conf.d
-        {{- end }}
+          mountPath: /etc/dinsro
       volumes:
-      {{- if .Values.configurationFiles }}
       - name: configurations
         configMap:
           name: {{ template "dinsro.fullname" . }}
-      {{- end }}
       - name: data
-      {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
           claimName: {{ .Values.persistence.existingClaim | default (include "dinsro.fullname" .) }}
-      {{- else }}
-        emptyDir: {}
-      {{- end -}}
