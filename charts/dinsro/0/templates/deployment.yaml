@@ -26,6 +26,8 @@ spec:
         env:
           - name: FOO
             value: "bar"
+          - name: DATAHIKE_URL
+            value: "file:///home/duck/projects/dinsro/data/dev"
         ports:
         - name: dinsro
           containerPort: 3000
