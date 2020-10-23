@@ -27,7 +27,7 @@ spec:
           - name: FOO
             value: "bar"
           - name: DATAHIKE_URL
-            value: "file:///var/lib/dinsro/data"
+            value: "datahike:file:///var/lib/dinsro/data"
         ports:
         - name: dinsro
           containerPort: 3000
